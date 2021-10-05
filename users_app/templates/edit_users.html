@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='./../static/css/new_users.css') }}">
+    <title>Edit User</title>
+</head>
+<body>
+    <main>
+        <form action="/users/update" method="POST">
+            <nav>
+                <div>
+                    <h2>Edit: {{ users['first_name'] }} {{ users['last_name'] }}</h2>
+                    <input type="hidden" name="id" value="{{ users.id }}">
+                </div>
+                <div class="homeButton">
+                    <a href="/users">Home</a>
+                </div>
+            </nav>
+            <div class="fillSpace">
+                <label for="first_name">
+                    First Name:
+                </label>
+                <input type="text" id="first_name" name="first_name" value="{{ users.first_name }}" />
+            </div>
+            <div class="fillSpace">
+                <label for="last_name">
+                    Last Name:
+                </label>
+                <input type="text" id="last_name" name="last_name" value="{{ users.last_name }}"/>
+            </div>
+            <div class="fillSpace">
+                <label for="email">
+                    Email:
+                </label>
+                <input type="text" id="email" name="email" value="{{ users.email }}"/>
+            </div>
+            <button type="submit" value="Update User">
+                Update User
+            </button>
+        </form>
+    </main>
+</body>
+</html>
