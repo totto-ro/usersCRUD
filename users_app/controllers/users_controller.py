@@ -9,49 +9,51 @@ def getAllUsers():
     users = User.get_all_users()
     return render_template( "index.html", users=users )
 
+
+
 @app.route( "/users/new", methods=['GET'] )
-def displayAddNewUser():
-    return render_template("new_users.html")
+def displayAddNewUser():                      
+    return render_template("new_users.html") #Just displays the new_users html page
+                                                #with the spaces to fill the form and send info to the database
+                                                #that will come from the add route that its connected in the form too   
+
 
 
 @app.route( "/users/add", methods=['POST'] )
-def add_user():
+def add_user():                         #Process the info that comes from the new route through the form
     User.add_data(request.form)
-    return redirect("/users")
+    return redirect("/users")           #receives the data from the model User function add_data,
+                                        #stores it in the database and redircts towards the index page
 
-@app.route("/users/edit/<id>", methods=['GET'])
+@app.route("/users/show/<int:id>", methods=['GET'])     
+def show(id):
+    dataID = id
+    user = User.get_id(dataID)
+    print(user)
+    return render_template("show_user.html", users=user[0])
+
+@app.route("/users/edit/<int:id>", methods=['GET'])     #Just displays the page that its link to an id
 def edit(id):
-    id = int(id)
-    data ={
-        "user_id" : id
-    }
-    users = User.get_id(data)
-    return render_template("edit_users.html", users=users)
+    dataID = id
+    user = User.get_id(dataID)
+    print(user)
+    return render_template("edit_users.html", users=user[0])
 
-@app.route("/users/update", methods=['POST'])
-def update():
+
+@app.route("/users/update", methods=['POST']) #actually changes and updates the users from the edit route
+def update():                                 #with the form help and a hidden id
     User.update(request.form)
     print(request.form)
     return redirect("/users")
 
-@app.route("/users/delete/<id>", methods=['GET'])
-def deleteUser(id):
-    id = int(id)
-    data ={
-        "user_id" : id
-    }
-    User.deleteUser(data)
-    print(request.form)
-    return redirect("/users")
 
-@app.route("/users/show/<id>", methods=['GET'])
-def show(id):
-    id = int(id)
-    data ={
-        "user_id" : id
-    }
-    users = User.get_id(data)
-    return render_template("show_user.html", users=users)
+@app.route("/users/destroy/<int:id>", methods=['GET'])
+def destroy(id):
+    numID = id
+    User.destroy( numID )
+    return redirect('/users')
+
+
 
 
 

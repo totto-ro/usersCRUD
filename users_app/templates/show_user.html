@@ -15,7 +15,7 @@
                 <thead>
                     
                     <tr>
-                        <th>User ID: {{ users.id }}</th>
+                        <th>User ID: {{ users['user_id'] }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,18 +27,18 @@
                             Email: {{ users['email'] }}
                         </td>
                         <td class="b4">
-                            Created on: {{ users.updated_at.strftime("%b %d %Y") }}
+                            Created on: {{ users['created_at'].strftime('%b %d %Y') }}
                         </td>
                         <td class="b5">
-                            Last Updated: {{ users.created_at.strftime("%b %d %Y %r") }}
+                            Last Updated: {{ users['updated_at'].strftime('%B %d %Y - %X') }}
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="grupBottums">
                 <a href="/users">Home</a>
-                <a href="/users/edit/{{ users.id }}">Edit</a>
-                <a href="/users/delete/{{ users.id }}">Delete</a>
+                <a href="/users/edit/{{  users['user_id'] }}">Edit</a>
+                <a href="/users/destroy/{{ users['user_id'] }}">Delete</a>
             </div>
         </form>
     </main>
